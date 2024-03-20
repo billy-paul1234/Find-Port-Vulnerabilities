@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nmap Scanner</title>
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function() {
+            $('form').submit(function(event) {
+                event.preventDefault();
+                var ip = $('#ip').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/scan',
+                    data: {ip: ip},
+                    success: function(response) { 
+                        console.log( response.result);
+                        var jsonResult = JSON.stringify(response.result, null, 4); // Convert to formatted JSON string
+                        $('#result').html('<pre>' +'Report: '+ jsonResult + '</pre>');
+                    },
+                    error: function() {
+                        alert('Error occurred during scan.');
+                    }
+                });
+            });
+        });
+    </script>
+    </head>
+    <body>
+        <h1>Nmap Scanner</h1>
+        <form>
+            <label for="ip">Enter IP Address:</label>
+            <input type="text" id="ip" name="ip" required>
+            <button type="submit">Search</button>
+        </form>
+        <div id="result"></div>
+    </body>
+</html>
