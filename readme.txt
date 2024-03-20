@@ -5,3 +5,4 @@ project_folder/
 │   └── index.html
 ├── requirements.txt
 └── log.txt
+ 
